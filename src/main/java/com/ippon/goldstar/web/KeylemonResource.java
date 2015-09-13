@@ -49,22 +49,23 @@ public class KeylemonResource {
      */
     @RequestMapping(value = "/image",
         method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    public JsonElement getAll() {
+        produces = MediaType.TEXT_PLAIN_VALUE)
+    public String getAll() {
 
         Client api = new Client("canatalio", "Ulwl57xMMdCUbildhOFahy79J166xDt3H6lRmCo53Kl0clR5QQ7hZf", "klws.keylemon.com", "https", "443");
 
         // Images can be given as public URLs.
-        String image_url = "https://i.vimeocdn.com/video/301088285_640.jpg";
+        String image_url = "http://i.imgur.com/lxfF23x.jpg";
 // .. or load image data from disk
-        Path path = Paths.get("");
+        Path path = Paths.get("/img/test2.jpeg");
         byte[] data = new byte[0];
         try {
             data = Files.readAllBytes(path);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        StringBuffer stringBuffer = new StringBuffer();
 
 // Detect face and ask for gender and age estimation (last bool parameter)
         com.keylemon.api.Response res = api.detectFace(new String[]{image_url}, new byte[][]{data}, true);
@@ -73,13 +74,14 @@ public class KeylemonResource {
             JsonArray faceResult = res.json.getAsJsonObject().getAsJsonArray("faces");
 
             for (int i = 0; i < faceResult.size(); i++) {
-                System.out.println(String.format("Face id : %s", faceResult.get(i).getAsJsonObject().get("face_id")));
-                System.out.println(String.format("Gender : %s", faceResult.get(i).getAsJsonObject().get("gender")));
-                System.out.println(String.format("Age : %s", faceResult.get(i).getAsJsonObject().get("age")));
+                stringBuffer.append(String.format("Face id : %s", faceResult.get(i).getAsJsonObject().get("face_id")));
+                stringBuffer.append(String.format("Gender : %s", faceResult.get(i).getAsJsonObject().get("gender")));
+                stringBuffer.append(String.format("Age : %s", faceResult.get(i).getAsJsonObject().get("age")));
+
             }
         }
 
-        return res.json.getAsJsonObject().getAsJsonArray("faces");
+        return stringBuffer.toString();
     }
 
 
