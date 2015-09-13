@@ -1,0 +1,21 @@
+{
+  "generator-jhipster": {
+    "baseName": "goldstar",
+    "packageName": "com.ippon.goldstar",
+    "packageFolder": "com/ippon/goldstar",
+    "authenticationType": "session",
+    "hibernateCache": "ehcache",
+    "clusteredHttpSession": "no",
+    "websocket": "spring-websocket",
+    "databaseType": "sql",
+    "devDatabaseType": "h2Memory",
+    "prodDatabaseType": "postgresql",
+    "searchEngine": "elasticsearch",
+    "useCompass": true,
+    "buildTool": "maven",
+    "frontendBuilder": "grunt",
+    "javaVersion": "8",
+    "enableTranslation": true,
+    "rememberMeKey": "10b650b3e05319a25eb64743586e82f7c3e3166d"
+  }
+}
