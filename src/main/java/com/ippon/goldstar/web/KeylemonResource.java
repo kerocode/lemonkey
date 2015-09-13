@@ -1,6 +1,7 @@
 package com.ippon.goldstar.web;
 
 import com.codahale.metrics.annotation.Timed;
+import com.google.gson.JsonElement;
 import com.ippon.goldstar.domain.User;
 import com.ippon.goldstar.repository.UserRepository;
 import com.ippon.goldstar.repository.search.UserSearchRepository;
@@ -27,6 +28,8 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 import com.google.gson.JsonArray;
 
+import com.keylemon.api.*;
+
 import static org.elasticsearch.index.query.QueryBuilders.queryString;
 
 /**
@@ -48,14 +51,14 @@ public class KeylemonResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public String getAll() {
+    public JsonElement getAll() {
 
-        Client api = new Client("user", "key", "klws.keylemon.com", "https", "443");
+        Client api = new Client("canatalio", "Ulwl57xMMdCUbildhOFahy79J166xDt3H6lRmCo53Kl0clR5QQ7hZf", "klws.keylemon.com", "https", "443");
 
         // Images can be given as public URLs.
         String image_url = "https://i.vimeocdn.com/video/301088285_640.jpg";
 // .. or load image data from disk
-        Path path = Paths.get("my_image.jpg");
+        Path path = Paths.get("");
         byte[] data = new byte[0];
         try {
             data = Files.readAllBytes(path);
@@ -76,7 +79,7 @@ public class KeylemonResource {
             }
         }
 
-        return "";
+        return res.json.getAsJsonObject().getAsJsonArray("faces");
     }
 
 
